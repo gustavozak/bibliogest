@@ -1,23 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>{{ isSignupMode ? 'Sign Up' : 'Login' }}</ion-title>
+    <ion-title>Sign up</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">{{ isSignupMode ? 'Sign Up' : 'Login' }}</ion-title>
+      <ion-title size="large">Sign up</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Enter Your Details</ion-card-title>
+      <ion-card-title>Create Your Account</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <ion-item>
           <ion-label position="floating">Email</ion-label>
           <ion-input type="email" formControlName="email"></ion-input>
@@ -28,11 +28,8 @@
           <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
 
-        <ion-button class="mauve-button" expand="full" type="submit" [disabled]="!form.valid">{{ isSignupMode ? 'Sign Up' : 'Login' }}</ion-button>
+        <ion-button expand="full" type="submit" [disabled]="!signupForm.valid">Sign up</ion-button>
       </form>
-      
-      <p>{{ isSignupMode ? 'Already have an account?' : 'New to bibliogest?' }} 
-        <ion-button class="mauve-button" expand="full" (click)="toggleMode()">{{ isSignupMode ? 'Login' : 'Sign Up' }}</ion-button></p>
     </ion-card-content>
   </ion-card>
 </ion-content>
