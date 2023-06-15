@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router'; // Importer Router ici
 import { AuthService, LoginPayload } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,10 +9,13 @@ import { AuthService, LoginPayload } from 'src/app/services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  form!: FormGroup; // tell TypeScript form will always be initialized before usage
+  form!: FormGroup;
   isSignupMode = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService, 
+    private router: Router  // Injecter Router ici
+  ) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -26,7 +30,7 @@ export class LoginPage implements OnInit {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (!this.form.valid) {
       return;
     }
@@ -34,24 +38,37 @@ export class LoginPage implements OnInit {
     const password = this.form.value.password;
   
     if (this.isSignupMode) {
-      this.authService.register({email, password}).then(user => {
-        if(user){
-          // Handle successful registration
+      const userCredential = await this.authService.register({email, password});
+      if(userCredential) {
+        // Handle successful registration
+        // Check if user is logged in
+        const user = userCredential.user;
+        if (user) {
+          // User is signed in, redirect to home
+          this.router.navigate(['/home']);
         } else {
-          // Handle failed registration
+          // User is not signed in, handle this case
         }
-      });
+      } else {
+        // Handle failed registration
+      }
     } else {
-      this.authService.login({email, password}).then(user => {
-        if(user){
-          // Handle successful login
+      const userCredential = await this.authService.login({email, password});
+      if(userCredential) {
+        // Handle successful login
+        // Check if user is logged in
+        const user = userCredential.user;
+        if (user) {
+          // User is signed in, redirect to home
+          this.router.navigate(['/home']);
         } else {
-          // Handle failed login
+          // User is not signed in, handle this case
         }
-      });
+      } else {
+        // Handle failed login
+      }
     }
   }
-  
 
   toggleMode() {
     this.isSignupMode = !this.isSignupMode;
