@@ -32,7 +32,12 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
-  }
+  },
+  {
+    path: 'bookmarks',
+    loadChildren: () => import('./favoris/favoris.module').then( m => m.FavorisPageModule)
+  },
+  
   
 ];
 
