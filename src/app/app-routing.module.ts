@@ -36,7 +36,11 @@ const routes: Routes = [
   {
     path: 'bookmarks',
     loadChildren: () => import('./favoris/favoris.module').then( m => m.FavorisPageModule)
+  },  {
+    path: 'library',
+    loadChildren: () => import('./library/library.module').then( m => m.LibraryPageModule)
   },
+
   
   
 ];

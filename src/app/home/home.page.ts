@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { BookApiService } from '../services/book-api.service';
-import { Subject } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
+import { Subject, from } from 'rxjs';
+import { debounceTime, switchMap, tap } from 'rxjs/operators';
 
 interface BookItem {
   volumeInfo: {
@@ -28,6 +28,8 @@ export class HomePage {
   constructor(private bookApiService: BookApiService) {
     this.searchTerm = '';
     this.setupSearch();
+    // S'abonner à searchSubject pour voir les valeurs émises
+    this.searchSubject.subscribe(query => console.log('query:', query));
   }
 
   async scan() {
@@ -41,6 +43,7 @@ export class HomePage {
 
   searchChanged(event: any) {
     const query = event.detail.value;
+    console.log('searchChanged:', query); // Vérifier si cette méthode est appelée
     this.searchSubject.next(query);
   }
 
@@ -53,7 +56,9 @@ export class HomePage {
   private setupSearch() {
     this.searchSubject.pipe(
       debounceTime(200),
-      switchMap(query => this.bookApiService.searchBooks(query))
+      tap(query => console.log('searching:', query)), // Vérifier si la recherche est lancée
+      switchMap(query => from(this.bookApiService.searchBooks(query))), // Convertir Promise en Observable si nécessaire
+      tap(response => console.log('response:', response)) // Vérifier la réponse
     ).subscribe((response: any) => {
       if ('items' in response) {
         this.books = response.items.map((item: BookItem) => ({
