@@ -1,0 +1,82 @@
+// Pour la barre de recherche
+ion-searchbar {
+    --background: #f0f0f0;
+    --color: #333;
+    --placeholder-color: #666;
+    --placeholder-font-style: italic;
+    --padding-start: 1em;
+    border-radius: 5px;
+    margin: 1em 0;
+}
+
+// Pour la popup
+.popup-class {
+    // Remplacez 'popup-class' par le nom de la classe que vous utilisez pour la popup
+    --background: #fff;
+    --border-radius: 5px;
+    --color: #333;
+    padding: 1em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+// Pour les résultats de recherche
+ion-item {
+    --background: #fff;
+    --color: #333;
+    --padding-start: 1em;
+    border-bottom: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    // Pour l'image du livre
+    ion-thumbnail {
+        --border-radius: 5px;
+    }
+
+    // Pour le bouton "Voir plus"
+    ion-button {
+        --background: #007bff;
+        --color: #fff;
+        --padding-horizontal: 1em;
+    }
+}
+// Pour le titre
+ion-title {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: linear-gradient(270deg, #000, #ba0eba);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: Gradient 3s ease infinite;
+    text-size-adjust: 130%;
+}
+
+@keyframes Gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+     
+// Pour la page de résultats
+ion-content {
+    background-color: #f5f5f5; // light grey background
+
+    ion-list {
+        padding: 1em;
+        border-radius: 5px;
+        background-color: #fff; // white background for the list
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // subtle shadow
+
+        ion-item {
+            --background: transparent; // remove the white background from individual items
+            --color: #333; // dark text
+            border-bottom: 1px solid #ddd; // subtle separator
+
+            // Adjust the thumbnail and button styles if necessary
+        }
+    }
+}
