@@ -54,16 +54,19 @@ ion-title {
     animation: Gradient 3s ease infinite;
     text-size-adjust: 130%;
 }
+on-searchbar {
+    border-radius: 15px;
+}
 
 @keyframes Gradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-     
+   
 // Pour la page de résultats
 ion-content {
-    background-color: #f5f5f5; // light grey background
+    --background: url('/assets/ion3.jpg') no-repeat center center / cover;
 
     ion-list {
         padding: 1em;
@@ -80,3 +83,6 @@ ion-content {
         }
     }
 }
+
+  
+  
